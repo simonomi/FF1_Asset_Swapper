@@ -172,10 +172,14 @@ from re import compile
 from sys import argv
 from glob import glob
 
+IS_EXE = argv[0].endswith("exe")
+
 character_regex = compile("(?P<model_type>cha|head)(?P<character_number>\\d+)(?P<variation>[a-h]?)_?(?P<special_trait>ice|rock|paralysis)?_?(?P<animation_number>\\d+)?")
 
 def error(message):
 	print(f"\033[31m{message}\033[0m")
+	if IS_EXE:
+		input("Press Return to exit...")
 	exit()
 
 def inte(_bytes):
@@ -507,6 +511,8 @@ if not CUSTOM_MODE:
 	input_character = get_character(root, character_number, character_variation)
 	move_character(input_character, all_hunters)
 	move_character(hunter_deinonychus, input_character)
+	if IS_EXE:
+		input("Press Return to exit...")
 	exit()
 
 # Any code that you add here will only be run in custom mode
