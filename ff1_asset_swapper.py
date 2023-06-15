@@ -315,7 +315,11 @@ def move(source, destination):
 	if source.length != destination.length:
 		error(f"{source} and {destination}'s sizes differ ({source.length} != {destination.length})")
 	
-	system(f'dd bs=1 conv=notrunc if="{input_nds_file}" of="{output_nds_file}" iseek={source.start_address} oseek={destination.start_address} count={source.length}')
+	with open(input_nds_file, "rb") as input_file:
+		input_file.seek(source.start_address)
+		with open(output_nds_file, "r+b") as output_file:
+			output_file.seek(destination.start_address)
+			output_file.write(input_file.read(source.length))
 
 def swap_path(path1, path2):
 	return swap(root.get_path(path1), root.get_path(path2))
