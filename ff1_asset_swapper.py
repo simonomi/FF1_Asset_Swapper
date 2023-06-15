@@ -379,7 +379,7 @@ if CUSTOM_MODE:
 	print("custom mode enabled")
 
 # MARK: ADD_WEIRD_SPRINT
-ADD_WEIRD_SPRINT = len(argv) > 1 and argv[1].lower() not in ["-d", "--disable-weird-sprint"]
+ADD_WEIRD_SPRINT = not (len(argv) > 1 and argv[1].lower() in ["-d", "--disable-weird-sprint"])
 if not ADD_WEIRD_SPRINT:
 	argv.pop(1)
 	print("Disabling ADD_WEIRD_SPRINT")
